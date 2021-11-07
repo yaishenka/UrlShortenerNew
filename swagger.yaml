@@ -1,0 +1,142 @@
+swagger: '2.0'
+info:
+  title: UrlShortener API
+  description: Description
+  termsOfService: https://www.google.com/policies/terms/
+  contact:
+    email: gagarinovdaniil@gmail.com
+  license:
+    name: BSD License
+  version: v1
+host: localhost:8000
+schemes:
+  - http
+basePath: /api
+consumes:
+  - application/json
+produces:
+  - application/json
+securityDefinitions:
+  Basic:
+    type: basic
+security:
+  - Basic: []
+paths:
+  /detail/{short_url}/:
+    get:
+      operationId: detail_read
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          schema:
+            $ref: '#/definitions/Url'
+      tags:
+        - detail
+    put:
+      operationId: detail_update
+      description: ''
+      parameters:
+        - name: data
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/Url'
+      responses:
+        '200':
+          description: ''
+          schema:
+            $ref: '#/definitions/Url'
+      tags:
+        - detail
+    patch:
+      operationId: detail_partial_update
+      description: ''
+      parameters:
+        - name: data
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/Url'
+      responses:
+        '200':
+          description: ''
+          schema:
+            $ref: '#/definitions/Url'
+      tags:
+        - detail
+    delete:
+      operationId: detail_delete
+      description: ''
+      parameters: []
+      responses:
+        '204':
+          description: ''
+      tags:
+        - detail
+    parameters:
+      - name: short_url
+        in: path
+        required: true
+        type: string
+  /manage:
+    get:
+      operationId: manage_list
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Url'
+      tags:
+        - manage
+    post:
+      operationId: manage_create
+      description: ''
+      parameters:
+        - name: data
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/Url'
+      responses:
+        '201':
+          description: ''
+          schema:
+            $ref: '#/definitions/Url'
+      tags:
+        - manage
+    parameters: []
+definitions:
+  Url:
+    required:
+      - short_url
+      - full_url
+    type: object
+    properties:
+      short_url:
+        title: Short url
+        type: string
+        maxLength: 50
+        minLength: 1
+      full_url:
+        title: Full url
+        type: string
+        minLength: 1
+      creator:
+        title: Creator
+        type: integer
+        readOnly: true
+      date_created:
+        title: Date created
+        type: string
+        format: date-time
+        readOnly: true
+      used:
+        title: Used
+        type: integer
+        readOnly: true
